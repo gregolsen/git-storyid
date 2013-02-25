@@ -21,14 +21,13 @@ class GitStoryid
 
     unless arguments.empty?
       @stories = arguments.map do |argument|
-        Configuration.project.stories.find(argument) 
+        Configuration.project.stories.find(argument)
       end
     end
   end
 
   def all_stories
-    @all_stories ||= Configuration.project.stories.all( 
-      :owner => Configuration.me,
+    @all_stories ||= Configuration.project.stories.all(
       :state => %w(started finished delivered),
       :limit => 30
     )
@@ -109,7 +108,7 @@ class GitStoryid
       }.each do |key, label|
         if @config[key].nil?
           changed = true
-          value = Readline.readline("#{label}: ", true) 
+          value = Readline.readline("#{label}: ", true)
           @project_config[key]  = format_config_value(value)
         end
       end
@@ -138,7 +137,7 @@ class GitStoryid
       file = File.join path,'.pivotalrc'
       if File.exists?(file)
         YAML.load(File.read(file)) || {}
-      else 
+      else
         {}
       end
     end
